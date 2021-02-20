@@ -1,0 +1,42 @@
+<include href="views/header.html"></include>
+<body>
+    <div class="container">
+    <h1>Midterm Survery</h1>
+    <form method="post" action="#" class="form-horizontal">
+
+        <div class="form-group">
+            <label>Name
+                <input type="text" name ="name" value="{{@userName}}">
+                <br>
+                <check if="{{isset(@errors['name']) }}">
+                    {{@errors['name']}}
+                </check>
+            </label>
+        </div>
+
+        <!-- get interest midterm -->
+        <div class="form-group">
+        <label class="col-sm-2 control-label">Check all that apply:</label>
+
+        <div class="col-sm-4">
+            <div class="col-sm-4">
+                <repeat group="{{@answers}}" value="{{@answer}}">
+
+                    <label><input type="checkbox"
+                                  name="ans[]"
+                                  value="{{@answer}}"> {{ ucfirst(@answer) }}</label><br>
+
+                </repeat>
+                <check if="{{@errors['ans']}}">{{@errors['ans']}}</check>
+                <check if="{{@errors['ans2']}}">{{@errors['ans2']}}</check>
+
+
+            </div>
+        </div>
+        </div>
+
+        <input type="submit" value="Next >>">
+    </form>
+    </div>
+</body>
+</html>
