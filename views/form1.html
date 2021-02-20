@@ -6,17 +6,17 @@
 
         <div class="form-group">
             <label>Name
-                <input type="text" name ="name" value="{{@userName}}">
+                <input type="text" name ="names" value="{{@userNames}}">
                 <br>
-                <check if="{{isset(@errors['name']) }}">
-                    {{@errors['name']}}
+                <check if="{{isset(@errors['names']) }}">
+                    {{@errors['names']}}
                 </check>
             </label>
         </div>
 
         <!-- get interest midterm -->
         <div class="form-group">
-        <label class="col-sm-2 control-label">Check all that apply:</label>
+            <p>Check all that apply:</p>
 
         <div class="col-sm-4">
             <div class="col-sm-4">
@@ -27,7 +27,7 @@
                                   value="{{@answer}}"> {{ ucfirst(@answer) }}</label><br>
 
                 </repeat>
-                <check if="{{@errors['ans']}}">{{@errors['ans']}}</check>
+
                 <check if="{{@errors['ans2']}}">{{@errors['ans2']}}</check>
 
 

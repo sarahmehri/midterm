@@ -1,0 +1,13 @@
+{
+  "name": "smehri/328/midterm",
+  "authors": [
+    {
+      "name": "Sarah Mehri",
+      "email": "smehri@mail.greenriver.edu"
+    }
+
+  ],
+  "require": {
+    "bcosca/fatfree-core": "dev-master"
+  }
+}

@@ -1,0 +1,37 @@
+<include href="views/header.html"></include>
+<body>
+    <div class="container">
+        <h1>Food Order, Continued</h1>
+
+        <form action="#" method="post" class="form-horizontal">
+
+            <!-- get condiments -->
+            <div class="form-group">
+
+                <label class="col-sm-2 control-label">Select condiments</label>
+                <div class="col-sm-4">
+                    <div class="col-sm-4">
+                        <repeat group="{{@condiments}}" value="{{@condiment}}">
+
+                            <label><input type="checkbox"
+                                          name="conds[]"
+                                          value="{{@condiment}}"> {{ucfirst(@condiment)}}</label><br>
+
+                        </repeat>
+                        <check if="{{@errors['conds']}}">{{@errors['conds']}}</check>
+                        <check if="{{@errors['conds2']}}">{{@errors['conds2']}}</check>
+
+
+                    </div>
+                </div>
+                </div>
+
+
+            <div class="col-xs-3 ">
+                <input class="form-control btn btn-default"
+                       type="submit" value="Place Order">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

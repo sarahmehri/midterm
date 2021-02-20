@@ -30,89 +30,51 @@ $f3->route('GET /', function() {
 });
 
 //Define an order route
-$f3->route('GET|POST /order', function($f3) {
+$f3->route('GET|POST /survey', function($f3) {
     //Add data from form1 to Session array
     //var_dump($_POST);
     //get the data from the post
-    $userFood = trim($_POST['food']);
-    $userMeal = trim($_POST['meal']);
+    $userNames = trim($_POST['names']);
+    $userAnswers = trim($_POST['answers']);
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        if(validFood($userFood)) {
-            $_SESSION['food'] = $_POST['food'];
+        if(!empty($_POST['names'])) {
+            $_SESSION['names'] = $_POST['names'];
+            $f3->set('names', $_SESSION['names']);
         }
         else{
 
-            $f3-> set ('errors["food"]', "food cannot be blanked");
+            $f3-> set ('errors["names"]', "Name cannot be blanked");
         }
-        if(validMeal($userMeal)) {
-            $_SESSION['meal'] = $userMeal;
+        if(isset($_POST['ans'])) {
+            $userAnswers = $_POST['ans'];
+            //data is valid add to session
+            if (validAnswers($userAnswers)) {
+                $_SESSION['ans'] = implode(", ", $userAnswers);
+               // $f3->set('ans', $_SESSION['ans']);
+            } else {
+                $f3->set('errors["ans"]', "please select an answer");
+            }
         }
         else{
-            $f3-> set ('errors["meal"]', "meal should be selected");
+            $f3-> set ('errors["ans2"]', "please select one");
         }
 
         //if no errors go to next page
         if(empty($f3->get('errors'))){
-            $f3->reroute('/order2');
+            $f3->reroute('/summary');
         }
     }
-
-
-
-    $f3-> set('meals', getMeals());
-    $f3-> set('userFood', isset($userFood)? $userFood: "");
-    $f3-> set('userMeal', isset($userMeal)? $userMeal: "");
+    $f3->set('answers', getAnswers());
+    $f3-> set('userNames', isset($userNames)? $userNames: "");
+    $f3-> set('userAnswers', isset($userAnswers)? $userAnswers: "");
     //Display a view
     $view = new Template();
     echo $view->render('views/form1.html');
 });
 
-//Define an order2 route
-$f3->route('GET|POST /order2', function($f3) {
-
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-
-        if(isset($_POST['conds'])) {
-            $userCondiments =$_POST['conds'];
-            //data is valid add to session
-            if(validCondiments($userCondiments)){
-                $_SESSION['conds'] = implode(", ", $userCondiments);
-            }
-            else{
-                $f3-> set ('errors["conds"]', "Go away, evildoer");
-            }
-
-            //send to summary page
-
-        }
-        else{
-            $f3-> set ('errors["conds2"]', "please select one");
-        }
-        if(empty($f3->get('errors'))){
-            $f3->reroute('/summary');
-        }
-
-
-    }
-
-    $f3->set('condiments', getCondiments());
-
-    //Display a view
-    $view = new Template();
-    echo $view->render('views/form2.html');
-});
 
 //Define a summary route
 $f3->route('GET /summary', function() {
-
-    //echo "<p>POST:</p>";
-    //var_dump($_POST);
-
-    //echo "<p>SESSION:</p>";
-    //var_dump($_SESSION);
-
-    //Add data from form2 to Session array
-
 
     //Display a view
     $view = new Template();
